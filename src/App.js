@@ -2,9 +2,10 @@ import './App.css';
 import React from 'react';
 import { Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Pokemon from "./Pokemon";
 
 function App() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
   
   
   useEffect(()=> {
@@ -22,7 +23,7 @@ function App() {
     
 
     <div className="App">
-      
+      <Pokemon data={data} />
     </div>
   );
 }
