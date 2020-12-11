@@ -1,9 +1,11 @@
 .wrap {
     text-align: center;
     color: white;
+    padding-top: 20px;
 }
 
 .wrap span {
     border: 1px solid var(--pokemon-yellow);
     padding: 20px;
+    font-size: 20px;
 }

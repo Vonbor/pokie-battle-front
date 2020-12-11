@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Pokemon.css';
 import './Info.css';
@@ -18,66 +18,80 @@ export default function Details() {
         fetch(`https://pokie-app.herokuapp.com/pokemon/${id}`)
             .then((res) => res.json())
             .then((res) => {
-                return setPokemon(res);
+                setPokemon(res);
                 console.log(res);
             });
     }, []);
 
     if (pokemon) {
         return (
-            <div>
-                {pokemon.map((poke) => {
-                    return (
-                        <>
-                            <div id="app">
-                                <div class="poke-card" id="{poke.name}">
-                                    <div class="flexy">
-                                        <span class="card-id">#{poke.id}</span>
-                                        <span class="card-hp">
-                                            HP {poke.base.HP}
-                                            <i
-                                                id="poke-hp"
-                                                class="fa fa-heart"
-                                                aria-hidden="true"
-                                            >
-                                                <FontAwesomeIcon
-                                                    icon={faHeart}
-                                                />
-                                            </i>
-                                        </span>
+            <div className="main">
+                <div>
+                    {pokemon.map((poke) => {
+                        return (
+                            <>
+                                <div id="app">
+                                    <div class="poke-card" id="{poke.name}">
+                                        <div class="flexy">
+                                            <span class="card-id">
+                                                #{poke.id}
+                                            </span>
+                                            <span class="card-hp">
+                                                HP {poke.base.HP}
+                                                <i
+                                                    id="poke-hp"
+                                                    class="fa fa-heart"
+                                                    aria-hidden="true"
+                                                >
+                                                    <FontAwesomeIcon
+                                                        icon={faHeart}
+                                                    />
+                                                </i>
+                                            </span>
+                                        </div>
+                                        <Link to={`/pokemon/${poke.id}/name`}>
+                                            <h1 class="card-name">
+                                                {poke.name.english}
+                                            </h1>
+                                        </Link>
+                                        <img
+                                            class="card-image"
+                                            src={createPokeImage(poke.id)}
+                                            alt={poke.name.english}
+                                        />
+                                        <Link to={`/pokemon/${poke.id}/type`}>
+                                            <span class="card-details">
+                                                Type:{' '}
+                                                {poke.type.map((elem) => {
+                                                    return (
+                                                        <span className="pokiType">
+                                                            {elem}
+                                                        </span>
+                                                    );
+                                                })}
+                                            </span>
+                                        </Link>
+                                        <Link to={`/pokemon/${poke.id}/base`}>
+                                            <span>
+                                                {Object.keys(poke.base).map(
+                                                    (key) => {
+                                                        return (
+                                                            <span className="pokiBase">
+                                                                {key}:{' '}
+                                                                {poke.base[key]}
+                                                                ,
+                                                            </span>
+                                                        );
+                                                    }
+                                                )}
+                                            </span>
+                                        </Link>
                                     </div>
-                                    <h1 class="card-name">
-                                        {poke.name.english}
-                                    </h1>
-                                    <img
-                                        class="card-image"
-                                        src={createPokeImage(poke.id)}
-                                        alt={poke.name.english}
-                                    />
-                                    <span class="card-details">
-                                        Type:{' '}
-                                        {poke.type.map((elem) => {
-                                            return (
-                                                <span className="pokiType">
-                                                    {elem}
-                                                </span>
-                                            );
-                                        })}
-                                    </span>
-                                    <span>
-                                        {Object.keys(poke.base).map((key) => {
-                                            return (
-                                                <span className="pokiBase">
-                                                    {key}: {poke.base[key]},
-                                                </span>
-                                            );
-                                        })}
-                                    </span>
                                 </div>
-                            </div>
-                        </>
-                    );
-                })}
+                            </>
+                        );
+                    })}
+                </div>
             </div>
         );
     } else {
