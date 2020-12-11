@@ -35,7 +35,7 @@ export default function Info() {
             return (
                 <div>
                     <div className="wrap">
-                        <span>{poke.map((type) => ` ${type}`)}</span>
+                        <span>{poke.map((type) => ` ${type};`)}</span>
                     </div>
                 </div>
             );
@@ -62,6 +62,6 @@ export default function Info() {
     };
 
     return (
-        <div>{pokeInfo ? renderPokemon(pokeInfo) : 'Error is happened'}</div>
+        <div>{pokeInfo ? renderPokemon(pokeInfo) : 'Error has happened'}</div>
     );
 }
